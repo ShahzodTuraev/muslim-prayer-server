@@ -7,6 +7,7 @@ import { UsersModule } from './users/users.module';
 import { User } from './users/users.entity';
 import { OtpModule } from './otp/otp.module';
 import { Otp } from './otp/otp.entity';
+import { MissedTasksModule } from './missed_tasks/missed_tasks.module';
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true, expandVariables: true }),
@@ -28,6 +29,7 @@ import { Otp } from './otp/otp.entity';
     AuthModule,
     UsersModule,
     OtpModule,
+    MissedTasksModule,
   ],
   controllers: [],
   providers: [],
