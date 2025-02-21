@@ -8,22 +8,27 @@ import { JwtService } from '@nestjs/jwt';
 import { SignupAuthDto } from './dto/signup.dto';
 import { SigninAuthDto } from './dto/signin.dto';
 import * as bcrypt from 'bcrypt';
+import { OtpService } from 'src/otp/otp.service';
 @Injectable()
 export class AuthService {
   constructor(
     private usersService: UsersService,
+    private otpService: OtpService,
     private jwtService: JwtService,
   ) {}
 
   async signUp(dto: SignupAuthDto): Promise<any> {
+    const isMatch = await this.otpService.otpCheck(dto);
+    if (!isMatch) {
+      return { isOtpCorrect: false, access_token: null };
+    }
     const user = await this.usersService.createUser(dto);
-
     const payload = { user_id: user.user_id };
     const jwtToken = await this.createToken(payload);
-    return user;
+    return { isOtpCorrect: true, jwtToken };
   }
   async signIn(dto: SigninAuthDto): Promise<{ access_token: string }> {
-    const user = await this.usersService.findUser(dto);
+    const user = await this.usersService.findUser(dto.user_email);
     if (!user) {
       throw new NotFoundException('User not found');
     }

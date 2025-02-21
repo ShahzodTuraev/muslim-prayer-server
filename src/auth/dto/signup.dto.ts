@@ -18,4 +18,8 @@ export class SignupAuthDto {
   @IsString()
   @MinLength(6)
   user_password: string;
+  @IsNotEmpty()
+  @MinLength(6)
+  @IsString()
+  otp: string;
 }
