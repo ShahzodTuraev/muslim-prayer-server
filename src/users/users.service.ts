@@ -5,6 +5,7 @@ import { User } from './users.entity';
 import { SignupAuthDto } from 'src/auth/dto/signup.dto';
 import * as bcrypt from 'bcrypt';
 import { SigninAuthDto } from 'src/auth/dto/signin.dto';
+import { OtpDto } from 'src/otp/dto/otp.dto';
 @Injectable()
 export class UsersService {
   constructor(
@@ -23,10 +24,10 @@ export class UsersService {
       throw new BadRequestException('Something went wrong');
     }
   }
-  async findUser(dto: SigninAuthDto) {
+  async findUser(email: string) {
     try {
       return this.userRepository.findOneBy({
-        user_email: dto.user_email,
+        user_email: email,
       });
     } catch (error) {
       console.log(error);

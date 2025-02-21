@@ -15,13 +15,13 @@ export class AuthController {
   constructor(private authService: AuthService) {}
 
   @HttpCode(HttpStatus.OK)
-  @Post('signup')
+  @Post('sign-up')
   signUp(@Body(ValidationPipe) signUpDto: SignupAuthDto) {
     return this.authService.signUp(signUpDto);
   }
 
   @HttpCode(HttpStatus.OK)
-  @Post('signin')
+  @Post('sign-in')
   signIn(@Body(ValidationPipe) signInDto: SigninAuthDto) {
     return this.authService.signIn(signInDto);
   }

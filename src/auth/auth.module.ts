@@ -6,10 +6,12 @@ import { AuthController } from './auth.controller';
 import { jwtConstants } from './constants';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { getJWTConfig } from 'src/config/jwt.config';
+import { OtpModule } from 'src/otp/otp.module';
 
 @Module({
   imports: [
     UsersModule,
+    OtpModule,
     JwtModule.registerAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
