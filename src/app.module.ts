@@ -8,6 +8,7 @@ import { User } from './users/users.entity';
 import { OtpModule } from './otp/otp.module';
 import { Otp } from './otp/otp.entity';
 import { MissedTasksModule } from './missed_tasks/missed_tasks.module';
+import { MissedTasks } from './missed_tasks/missed_tasks.entity';
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true, expandVariables: true }),
@@ -20,7 +21,7 @@ import { MissedTasksModule } from './missed_tasks/missed_tasks.module';
         username: configService.get('DB_USERNAME'),
         password: configService.get('DB_PASSWORD'),
         database: configService.get('DB_NAME'),
-        entities: [User, Otp],
+        entities: [User, Otp, MissedTasks],
         synchronize: true,
         timezone: 'Z',
       }),
