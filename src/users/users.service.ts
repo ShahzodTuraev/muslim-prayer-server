@@ -4,8 +4,7 @@ import { Repository } from 'typeorm';
 import { User } from './users.entity';
 import { SignupAuthDto } from 'src/auth/dto/signup.dto';
 import * as bcrypt from 'bcrypt';
-import { SigninAuthDto } from 'src/auth/dto/signin.dto';
-import { OtpDto } from 'src/otp/dto/otp.dto';
+
 @Injectable()
 export class UsersService {
   constructor(
@@ -33,6 +32,7 @@ export class UsersService {
       console.log(error);
     }
   }
+
   async getUsers() {
     try {
       return await this.userRepository.find({
