@@ -3,12 +3,13 @@ import {
   CreateDateColumn,
   Entity,
   PrimaryGeneratedColumn,
+  UpdateDateColumn,
 } from 'typeorm';
 
 @Entity({ name: 'missed_tasks' })
 export class MissedTasks {
-  @PrimaryGeneratedColumn()
-  task_id: number;
+  @PrimaryGeneratedColumn('uuid')
+  task_id: string;
   @Column({ default: 0 })
   fajr: number;
   @Column({ default: 0 })
@@ -27,6 +28,6 @@ export class MissedTasks {
   createId: string;
   @CreateDateColumn({ type: 'timestamp' })
   createdAt: Date;
-  @Column({ type: 'timestamp' })
-  expiresAt: Date;
+  @UpdateDateColumn({ type: 'timestamp' })
+  updateAt: Date;
 }
