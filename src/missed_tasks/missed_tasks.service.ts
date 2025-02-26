@@ -14,6 +14,12 @@ export class MissedTasksService {
   async createMissedTasks(user_id: string, dto: createMissedTasksDto) {
     try {
       const missedTasks = this.missedTasksRepository.create(dto);
+      const checkDbForUniqueUserId = await this.missedTasksRepository.findOne({
+        where: { createId: user_id },
+      });
+      if (!!checkDbForUniqueUserId) {
+        return { message: 'You have already insert your missed tasks count' };
+      }
       return await this.missedTasksRepository.save({
         ...missedTasks,
         createId: user_id,
