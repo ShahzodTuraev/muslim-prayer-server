@@ -25,7 +25,7 @@ export class AuthService {
     const user = await this.usersService.createUser(dto);
     const payload = { user_id: user.user_id };
     const jwtToken = await this.createToken(payload);
-    return { isOtpCorrect: true, jwtToken };
+    return { isOtpCorrect: true, access_token: jwtToken.access_token };
   }
   async signIn(dto: SigninAuthDto): Promise<{ access_token: string }> {
     const user = await this.usersService.findUser(dto.user_email);
