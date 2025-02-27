@@ -6,10 +6,10 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 
-@Entity({ name: 'missed_tasks' })
-export class MissedTasks {
+@Entity({ name: 'required_tasks' })
+export class RequiredTasks {
   @PrimaryGeneratedColumn('uuid')
-  req_task_id: string;
+  req_task_id: number;
   @Column({ type: 'varchar', length: 255, nullable: false })
   req_task_code: string;
   @Column({ type: 'varchar', length: 255, nullable: false })

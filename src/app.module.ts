@@ -10,6 +10,7 @@ import { Otp } from './otp/otp.entity';
 import { MissedTasksModule } from './missed_tasks/missed_tasks.module';
 import { MissedTasks } from './missed_tasks/missed_tasks.entity';
 import { RequiredTasksModule } from './required_tasks/required_tasks.module';
+import { RequiredTasks } from './required_tasks/required_tasks.entity';
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true, expandVariables: true }),
@@ -22,7 +23,7 @@ import { RequiredTasksModule } from './required_tasks/required_tasks.module';
         username: configService.get('DB_USERNAME'),
         password: configService.get('DB_PASSWORD'),
         database: configService.get('DB_NAME'),
-        entities: [User, Otp, MissedTasks],
+        entities: [User, Otp, MissedTasks, RequiredTasks],
         synchronize: true,
         timezone: 'Z',
       }),
