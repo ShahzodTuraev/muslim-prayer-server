@@ -19,9 +19,6 @@ export class UpdateMissedTasksDto {
   @IsOptional()
   @IsNumber()
   vitr: number;
-  @IsOptional()
-  @IsNumber()
-  fasting: number;
 }
 // Custom validation function to ensure at least one field is provided
 import { validate } from 'class-validator';
@@ -38,11 +35,10 @@ export async function validateUpdateMissedTasksDto(dto: UpdateMissedTasksDto) {
     dto.asr === undefined &&
     dto.maghrib === undefined &&
     dto.ishaa === undefined &&
-    dto.vitr === undefined &&
-    dto.fasting === undefined
+    dto.vitr === undefined
   ) {
     throw new Error(
-      'At least one field (product_name, product_price, or product_count) must be provided.',
+      'At least one code (01, 02, 03, 04, 05, 06) must be provided.',
     );
   }
 }
