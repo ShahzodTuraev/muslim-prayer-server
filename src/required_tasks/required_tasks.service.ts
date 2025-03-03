@@ -65,5 +65,10 @@ export class RequiredTasksService {
       throw err;
     }
   }
-  async getRequiredTasks() {}
+  async getRequiredTasks(range: 'week' | 'month' | 'year', user_id: string) {
+    try {
+    } catch (err) {
+      throw err;
+    }
+  }
 }
