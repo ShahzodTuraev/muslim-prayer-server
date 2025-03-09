@@ -1,7 +1,7 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { RequiredTasks } from './required_tasks.entity';
-import { Between, Repository } from 'typeorm';
+import { Between, MoreThan, Repository } from 'typeorm';
 import { createRequiredTasksDto } from './dto/createRequiredTasks.dto';
 
 @Injectable()
@@ -65,8 +65,32 @@ export class RequiredTasksService {
       throw err;
     }
   }
+  async getTasksByRange(range: 'week' | 'month' | 'year') {
+    let date = new Date();
+    switch (range) {
+      case 'week':
+        date.setDate(date.getDate() - 7);
+        break;
+      case 'month':
+        date.setMonth(date.getMonth() - 1);
+        break;
+      case 'year':
+        date.setFullYear(date.getFullYear() - 1);
+        break;
+      default:
+        throw new Error('Invalid range');
+    }
+
+    return this.requiredTasksRepository.find({
+      where: {
+        createdAt: MoreThan(date),
+      },
+      order: { createdAt: 'DESC' },
+    });
+  }
   async getRequiredTasks(range: 'week' | 'month' | 'year', user_id: string) {
     try {
+      return range;
     } catch (err) {
       throw err;
     }
