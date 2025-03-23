@@ -15,7 +15,7 @@ import {
   UpdateMissedTasksDto,
   validateUpdateMissedTasksDto,
 } from './dto/updateMissedTasks.dto';
-
+//ready for data fetching
 @Controller('missed-tasks')
 export class MissedTasksController {
   constructor(private readonly MissedTasksService: MissedTasksService) {}
