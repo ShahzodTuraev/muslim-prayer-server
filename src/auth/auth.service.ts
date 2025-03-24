@@ -28,7 +28,7 @@ export class AuthService {
     return { isOtpCorrect: true, access_token: jwtToken.access_token };
   }
   async signIn(dto: SigninAuthDto): Promise<{ access_token: string }> {
-    const user = await this.usersService.findUser(dto.user_email);
+    const user = await this.usersService.findUser('email', dto.user_email);
     if (!user) {
       throw new NotFoundException('User not found');
     }
@@ -41,14 +41,10 @@ export class AuthService {
     return jwtToken;
   }
   async createToken(payload: { user_id: string }) {
-    try {
-      return {
-        access_token: await this.jwtService.signAsync(payload, {
-          expiresIn: '1d',
-        }),
-      };
-    } catch (error) {
-      throw error;
-    }
+    return {
+      access_token: await this.jwtService.signAsync(payload, {
+        expiresIn: '1d',
+      }),
+    };
   }
 }

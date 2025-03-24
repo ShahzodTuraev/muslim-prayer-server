@@ -56,7 +56,7 @@ export class OtpService {
   }
   async createOTP(email: OtpDto) {
     try {
-      const result = await this.usersService.findUser(email.email);
+      const result = await this.usersService.findUser('email', email.email);
       if (!result) {
         const res = await this.sendOtpToEmail(email.email);
         return { message: 'OTP sent successfully', otp: res };

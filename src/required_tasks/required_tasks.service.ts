@@ -28,7 +28,7 @@ export class RequiredTasksService {
         return 'ishaa';
         break;
       default:
-        '';
+        return '';
     }
   }
   async createRequiredTasks(
@@ -62,12 +62,19 @@ export class RequiredTasksService {
 
       return this.requiredTasksRepository.save(task);
     } catch (err) {
+      console.log(err);
       throw err;
     }
   }
-  async getTasksByRange(range: 'week' | 'month' | 'year') {
+  async getTasksByRange(
+    user_id: string,
+    range: 'day' | 'week' | 'month' | 'year',
+  ) {
     let date = new Date();
     switch (range) {
+      case 'day':
+        date.setDate(date.getDate() - 1);
+        break;
       case 'week':
         date.setDate(date.getDate() - 7);
         break;
@@ -83,16 +90,10 @@ export class RequiredTasksService {
 
     return this.requiredTasksRepository.find({
       where: {
+        createId: user_id,
         createdAt: MoreThan(date),
       },
       order: { createdAt: 'DESC' },
     });
-  }
-  async getRequiredTasks(range: 'week' | 'month' | 'year', user_id: string) {
-    try {
-      return range;
-    } catch (err) {
-      throw err;
-    }
   }
 }
