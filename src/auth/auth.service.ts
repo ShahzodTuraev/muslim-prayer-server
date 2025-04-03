@@ -43,7 +43,7 @@ export class AuthService {
   async createToken(payload: { user_id: string }) {
     return {
       access_token: await this.jwtService.signAsync(payload, {
-        expiresIn: '1d',
+        expiresIn: '180d',
       }),
     };
   }

@@ -22,31 +22,41 @@ export class PrayerTimeService {
         prayer: 'Fajr',
         time: fixedTime.Fajr,
         sunrise: fixedTime.Sunrise,
-        checked: checkedTime.some((ele) => ele.req_task_code == '01'),
+        checked:
+          checkedTime.find((ele) => ele.req_task_code == '01')?.req_task_id ||
+          null,
       },
       {
         id: '02',
         prayer: 'Dhuhr',
         time: fixedTime.Dhuhr,
-        checked: checkedTime.some((ele) => ele.req_task_code == '02'),
+        checked:
+          checkedTime.find((ele) => ele.req_task_code == '02')?.req_task_id ||
+          null,
       },
       {
         id: '03',
         prayer: 'Asr',
         time: fixedTime.Asr,
-        checked: checkedTime.some((ele) => ele.req_task_code == '03'),
+        checked:
+          checkedTime.find((ele) => ele.req_task_code == '03')?.req_task_id ||
+          null,
       },
       {
         id: '04',
         prayer: 'Maghrib',
         time: fixedTime.Maghrib,
-        checked: checkedTime.some((ele) => ele.req_task_code == '04'),
+        checked:
+          checkedTime.find((ele) => ele.req_task_code == '04')?.req_task_id ||
+          null,
       },
       {
         id: '05',
         prayer: 'Isha',
         time: fixedTime.Isha,
-        checked: checkedTime.some((ele) => ele.req_task_code == '05'),
+        checked:
+          checkedTime.find((ele) => ele.req_task_code == '05')?.req_task_id ||
+          null,
       },
     ];
     return prayerlist;

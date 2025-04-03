@@ -66,6 +66,52 @@ export class RequiredTasksService {
       throw err;
     }
   }
+  async deleteRequiredTasks(createId: string, req_task_id: string) {
+    try {
+      await this.requiredTasksRepository
+        .createQueryBuilder('required_tasks')
+        .delete()
+        .where('req_task_id= :req_task_id', { req_task_id })
+        .andWhere('createId=:createId', { createId })
+        .execute();
+      return { message: 'task deleted' };
+    } catch (err) {
+      console.log(err);
+      throw err;
+    }
+  }
+  getCurrentWeekRange(type: string) {
+    if (type == 'week') {
+      const today = new Date();
+      const firstDay = new Date(today);
+      const lastDay = new Date(today);
+      // Adjusting to start from Monday (ISO week starts on Monday)
+      const dayOfWeek = today.getDay(); // Sunday = 0, Monday = 1, ..., Saturday = 6
+      const diffToMonday = dayOfWeek === 0 ? -6 : 1 - dayOfWeek;
+      firstDay.setDate(today.getDate() + diffToMonday); // Set to Monday
+      firstDay.setHours(0, 0, 0, 0); // Set to start of the day
+      lastDay.setDate(firstDay.getDate() + 6); // Set to Sunday
+      lastDay.setHours(23, 59, 59, 999); // Set to end of the day
+      return {
+        startDate: firstDay.toISOString(),
+        endDate: lastDay.toISOString(),
+      };
+    }
+  }
+  async getTasksWeek(
+    createId: string,
+    range: 'day' | 'week' | 'month' | 'year',
+  ) {
+    const result = await this.requiredTasksRepository
+      .createQueryBuilder('required_tasks')
+      .where(
+        'task.createAt BETWEEN :startDate AND :endDate',
+        this.getCurrentWeekRange(range),
+      )
+      .andWhere('createId=:createId', { createId })
+      .getMany();
+    return result;
+  }
   async getTasksByRange(
     user_id: string,
     range: 'day' | 'week' | 'month' | 'year',
