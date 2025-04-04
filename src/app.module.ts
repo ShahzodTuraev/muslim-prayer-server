@@ -11,6 +11,9 @@ import { MissedTasksModule } from './missed_tasks/missed_tasks.module';
 import { MissedTasks } from './missed_tasks/missed_tasks.entity';
 import { RequiredTasksModule } from './required_tasks/required_tasks.module';
 import { RequiredTasks } from './required_tasks/required_tasks.entity';
+import { PrayerTimeController } from './prayer_time/prayer_time.controller';
+import { PrayerTimeService } from './prayer_time/prayer_time.service';
+import { PrayerTimeModule } from './prayer_time/prayer_time.module';
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true, expandVariables: true }),
@@ -34,8 +37,9 @@ import { RequiredTasks } from './required_tasks/required_tasks.entity';
     OtpModule,
     MissedTasksModule,
     RequiredTasksModule,
+    PrayerTimeModule,
   ],
-  controllers: [],
-  providers: [],
+  controllers: [PrayerTimeController],
+  providers: [PrayerTimeService],
 })
 export class AppModule {}

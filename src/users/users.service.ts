@@ -23,11 +23,15 @@ export class UsersService {
       throw new BadRequestException('Something went wrong');
     }
   }
-  async findUser(email: string) {
+  async findUser(type: string, item: string) {
     try {
-      return this.userRepository.findOneBy({
-        user_email: email,
-      });
+      return this.userRepository.findOneBy(
+        type == 'email'
+          ? {
+              user_email: item,
+            }
+          : { user_id: item },
+      );
     } catch (error) {
       console.log(error);
     }
