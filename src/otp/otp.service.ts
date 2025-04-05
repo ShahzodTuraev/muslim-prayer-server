@@ -40,13 +40,13 @@ export class OtpService {
 
     try {
       // Send OTP via email
-      // await this.emailTransporter.sendMail({
-      //   from: 'mydayx24@gmail.com',
-      //   to: email,
-      //   subject: 'My Day OTP',
-      //   text: `Your OTP is ${otp}`,
-      //   html: `<p style="font-size: 16px">Assalomu alaykum  <br> Your OTP is <strong style="margin-left: 3px">${otp}</strong></p>`,
-      // });
+      await this.emailTransporter.sendMail({
+        from: 'mydayx24@gmail.com',
+        to: email,
+        subject: 'My Day OTP',
+        text: `Your OTP is ${otp}`,
+        html: `<p style="font-size: 16px">Assalomu alaykum  <br> Your OTP is <strong style="margin-left: 3px">${otp}</strong></p>`,
+      });
       await this.saveOtp(email, otp);
       return otp; // Return OTP to save it for verification
     } catch (error) {
