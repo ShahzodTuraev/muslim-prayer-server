@@ -40,13 +40,13 @@ export class OtpService {
 
     try {
       // Send OTP via email
-      await this.emailTransporter.sendMail({
-        from: 'mydayx24@gmail.com',
-        to: email,
-        subject: 'My Day OTP',
-        text: `Your OTP is ${otp}`,
-        html: `<p style="font-size: 16px">Assalomu alaykum  <br> Your OTP is <strong style="margin-left: 3px">${otp}</strong></p>`,
-      });
+      // await this.emailTransporter.sendMail({
+      //   from: 'mydayx24@gmail.com',
+      //   to: email,
+      //   subject: 'My Day OTP',
+      //   text: `Your OTP is ${otp}`,
+      //   html: `<p style="font-size: 16px">Assalomu alaykum  <br> Your OTP is <strong style="margin-left: 3px">${otp}</strong></p>`,
+      // });
       await this.saveOtp(email, otp);
       return otp; // Return OTP to save it for verification
     } catch (error) {
@@ -56,13 +56,14 @@ export class OtpService {
   }
   async createOTP(email: OtpDto) {
     try {
-      const result = await this.usersService.findUser(email.email);
+      const result = await this.usersService.findUser('email', email.email);
       if (!result) {
         const res = await this.sendOtpToEmail(email.email);
-        return { message: 'OTP sent successfully', otp: res };
+        console.log(res);
+        return { message: 'OTP sent successfully' };
       }
 
-      return { message: 'This email is already in use', otp: null };
+      return { message: 'This email is already in use' };
     } catch (error) {
       console.log('createOTP error:', error);
     }
@@ -77,6 +78,7 @@ export class OtpService {
       await this.otpRepository.save(otpData);
       return true;
     } catch (error) {
+      console.log(error);
       throw new Error('OTP recording error');
     }
   }

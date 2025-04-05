@@ -1,8 +1,11 @@
 import {
   Body,
   Controller,
+  Delete,
+  Get,
   HttpCode,
   HttpStatus,
+  Param,
   Post,
   Request,
   ValidationPipe,
@@ -23,5 +26,18 @@ export class RequiredTasksController {
       req.user.user_id,
       createRequiredTasksDto,
     );
+  }
+  @HttpCode(HttpStatus.OK)
+  @Delete('delete/:id')
+  async deleteRequiredTasks(@Request() req: any, @Param('id') id: string) {
+    return this.RequiredTasksService.deleteRequiredTasks(req.user.user_id, id);
+  }
+  @HttpCode(HttpStatus.OK)
+  @Get(':type')
+  async getTasksList(
+    @Request() req: any,
+    @Param('type') type: 'day' | 'week' | 'month' | 'year',
+  ) {
+    return this.RequiredTasksService.getTasksByRange(req.user.user_id, type);
   }
 }

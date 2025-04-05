@@ -1,7 +1,7 @@
 import {
   IsEmail,
-  IsEnum,
   IsNotEmpty,
+  IsNumber,
   IsString,
   MinLength,
 } from 'class-validator';
@@ -12,8 +12,6 @@ export class SignupAuthDto {
   user_name: string;
   @IsEmail()
   user_email: string;
-  @IsEnum(['USER', 'ADMIN'], { message: 'Valid type required' })
-  user_type: 'USER' | 'ADMIN';
   @IsNotEmpty()
   @IsString()
   @MinLength(6)
@@ -22,4 +20,12 @@ export class SignupAuthDto {
   @MinLength(6)
   @IsString()
   otp: string;
+  @IsString()
+  city: string;
+  @IsString()
+  country: string;
+  @IsNumber()
+  latitude: number;
+  @IsNumber()
+  longitude: number;
 }

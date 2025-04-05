@@ -6,6 +6,7 @@ import { RequiredTasks } from './required_tasks.entity';
 
 @Module({
   imports: [TypeOrmModule.forFeature([RequiredTasks])],
+  exports: [RequiredTasksService],
   controllers: [RequiredTasksController],
   providers: [RequiredTasksService],
 })
